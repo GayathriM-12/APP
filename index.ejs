@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do App</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Add a new task" required>
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        <% tasks.forEach((task, index) => { %>
+            <li class="<%= task.completed ? 'completed' : '' %>">
+                <%= task.name %>
+                <% if (!task.completed) { %>
+                    <form action="/complete" method="POST" style="display: inline;">
+                        <input type="hidden" name="taskIndex" value="<%= index %>">
+                        <button type="submit">Mark as Complete</button>
+                    </form>
+                <% } %>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
